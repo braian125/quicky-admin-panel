@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
           import(/* webpackChunkName: "about" */ "./../views/Home.vue"),
       },
       {
-        path: "posts",
+        path: "careers",
         name: "",
         component: {
           render(c) {
@@ -29,17 +29,11 @@ const routes: Array<RouteConfig> = [
         },
         children: [
           {
-            path: "",
-            name: "post",
-            component: () =>
-              import(/* webpackChunkName: "company" */ "./../views/Posts.vue"),
-          },
-          {
-            path: ":id(\\d+)?",
-            name: "post-view",
+            path: "new",
+            name: "create-career",
             component: () =>
               import(
-                /* webpackChunkName: "company" */ "./../views/PostDetail.vue"
+                /* webpackChunkName: "company" */ "./../views/careers/CreateCareer.vue"
               ),
           },
         ],
