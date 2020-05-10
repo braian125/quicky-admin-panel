@@ -14,12 +14,6 @@
             <router-link to="/">
               <el-menu-item index="1">Home</el-menu-item>
             </router-link>
-            <router-link to="/posts">
-              <el-menu-item index="2">Posts</el-menu-item>
-            </router-link>
-            <router-link to="/login">
-              <el-menu-item index="1">Login</el-menu-item>
-            </router-link>
           </div>
         </div>
         <div class="col-6">
@@ -28,9 +22,7 @@
               <template slot="title">
                 <el-avatar></el-avatar>
               </template>
-              <el-menu-item index="2-1">item one</el-menu-item>
-              <el-menu-item index="2-2">item two</el-menu-item>
-              <el-menu-item index="2-3">item three</el-menu-item>
+              <el-menu-item index="2-1">Profile</el-menu-item>
             </el-submenu>
           </div>
         </div>
