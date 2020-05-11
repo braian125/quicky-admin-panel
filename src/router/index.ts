@@ -10,14 +10,14 @@ const routes: Array<RouteConfig> = [
     redirect: "home",
     component: () =>
       import(
-        /* webpackChunkName: "about" */ "./../containers/dashboard/Dashboard.vue"
+        /* webpackChunkName: "dashboard" */ "./../containers/dashboard/Dashboard.vue"
       ),
     children: [
       {
         path: "/home",
         name: "home",
         component: () =>
-          import(/* webpackChunkName: "about" */ "./../views/Home.vue"),
+          import(/* webpackChunkName: "home" */ "./../views/Home.vue"),
       },
       {
         path: "careers",
@@ -29,11 +29,27 @@ const routes: Array<RouteConfig> = [
         },
         children: [
           {
+            path: "",
+            name: "list-careers",
+            component: () =>
+              import(
+                /* webpackChunkName: "careers" */ "./../views/careers/Careers.vue"
+              ),
+          },
+          {
             path: "new",
             name: "create-career",
             component: () =>
               import(
-                /* webpackChunkName: "company" */ "./../views/careers/CreateCareer.vue"
+                /* webpackChunkName: "create-careers" */ "./../views/careers/CreateCareer.vue"
+              ),
+          },
+          {
+            path: ":id(\\d+)?",
+            name: "edit-career",
+            component: () =>
+              import(
+                /* webpackChunkName: "create-careers" */ "./../views/careers/CreateCareer.vue"
               ),
           },
         ],
