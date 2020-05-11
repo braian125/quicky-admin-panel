@@ -23,6 +23,19 @@
         <router-link to="/careers/new">Create new career</router-link>
       </el-menu-item>
     </el-submenu>
+
+    <el-submenu index="2">
+      <template slot="title">
+        <i class="el-icon-notebook-2"></i>
+        <span slot="title">Roadmap</span>
+      </template>
+      <!--  <el-menu-item index="2">
+        <router-link to="/careers">View roadmap</router-link>
+      </el-menu-item>-->
+      <el-menu-item index="2">
+        <router-link to="/roadmap/new">Create new roadmap</router-link>
+      </el-menu-item>
+    </el-submenu>
   </el-menu>
 </template>
 <script lang="ts">

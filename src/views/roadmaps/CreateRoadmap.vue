@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <h2>New Career</h2>
-    <form @submit.prevent="handleCreateCareer">
+    <h2>New Roadmap</h2>
+    <form @submit.prevent="handleCreateRoadmap">
       <div class="form-group text-left">
         <label for="name">Name</label>
         <input
           type="text"
           v-bind:class="{'form-control': true, 'is-invalid' : errors.name, 'is-valid': errors.name === false}"
           id="name"
-          v-model="career.name"
+          v-model="roadmap.name"
           @blur="checkField($event)"
           aria-describedby="nameHelp"
         />
@@ -22,7 +22,7 @@
           type="text"
           v-bind:class="{'form-control': true, 'is-invalid' : errors.description, 'is-valid': errors.description === false}"
           id="description"
-          v-model="career.description"
+          v-model="roadmap.description"
           @blur="checkField($event)"
           aria-describedby="descriptionHelp"
         />
@@ -31,24 +31,10 @@
         >Please provide a valid description.</div>
       </div>
       <div class="form-group text-left">
-        <label for="name">Icon</label>
-        <input
-          type="text"
-          v-bind:class="{'form-control': true, 'is-invalid' : errors.icon, 'is-valid': errors.icon === false}"
-          id="icon"
-          v-model="career.icon"
-          @blur="checkField($event)"
-          aria-describedby="iconHelp"
-        />
-        <div
-          v-bind:class="{'invalid-feedback': errors.icon, 'd-none': !errors.icon}"
-        >Please provide a valid icon.</div>
-      </div>
-      <div class="form-group text-left">
         <label for="status">Status</label>
-        <el-switch v-model="career.status" class="ml-2" />
+        <el-switch v-model="roadmap.status" class="ml-2" />
       </div>
-      <el-button native-type="submit" type="primary">{{ career.id?'Update':'Save' }}</el-button>
+      <el-button native-type="submit" type="primary">{{ roadmap.id?'Update':'Save' }}</el-button>
     </form>
   </div>
 </template>
@@ -56,24 +42,19 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
+import { IRoadmap } from "./../../types/roadmap";
 
-import { CareerModule } from "./../../store/modules/career";
-import {
-  createCareer,
-  updateCareer,
-  getCareers,
-  getCareer
-} from "./../../api/careers";
-import { ICareer } from "./../../types/career";
+//import { roadmapModule } from "./../../store/modules/roadmap";
+import { createRoadmap } from "./../../api/roadmaps";
 
 @Component({})
-export default class CreateCareer extends Vue {
+export default class CreateRoadmap extends Vue {
   private errors = <any>{};
 
-  private career = <ICareer>{};
+  private roadmap = <IRoadmap>{};
 
-  get careers(): [] {
-    return this.$store.state.Careers || [];
+  get roadmaps(): [] {
+    return this.$store.state.roadmaps || [];
   }
 
   private checkField(e: any) {
@@ -84,21 +65,18 @@ export default class CreateCareer extends Vue {
     }
   }
 
-  private async handleCreateCareer() {
-    if (
-      this.career.name != "" &&
-      this.career.description != "" &&
-      this.career.icon != ""
-    ) {
-      if (this.career.id) {
-        const { data } = await updateCareer(this.career.id, this.career);
+  private async handleCreateRoadmap() {
+    if (this.roadmap.name != "" && this.roadmap.description != "") {
+      if (this.roadmap.id) {
+        //const { data } = await updateroadmap(this.roadmap.id, this.roadmap);
       } else {
-        const { data } = await createCareer(this.career);
+        const { data } = await createRoadmap(this.roadmap);
+        console.log(data);
       }
-      this.career = <ICareer>{};
+      this.roadmap = <IRoadmap>{};
       this.errors = <any>{};
       this.$message({
-        message: "Career save.",
+        message: "roadmap save.",
         type: "success"
       });
     } else {
@@ -106,23 +84,23 @@ export default class CreateCareer extends Vue {
     }
   }
 
-  private async fetchCareer(id: string) {
+  /*private async fetchroadmap(id: number) {
     try {
-      const { data } = await getCareer(id, {
-        /* Your params here */
+      const { data } = await getroadmap(id, {
+         Your params here 
       });
-      this.career = data;
+      this.roadmap = data;
     } catch (err) {
       console.error(err);
     }
-  }
+  }*/
 
   mounted() {
     if (this.$route.params.id) {
-      //this.career = this.careers.find(c => c.id == this.$route.params.id);
-      this.fetchCareer(this.$route.params.id);
+      //this.roadmap = this.roadmaps.find(c => c.id == this.$route.params.id);
+      //this.fetchroadmap(this.$route.params.id);
     } else {
-      this.career = <ICareer>{};
+      this.roadmap = <IRoadmap>{};
     }
   }
 }

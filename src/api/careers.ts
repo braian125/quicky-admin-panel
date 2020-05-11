@@ -14,7 +14,7 @@ export const createCareer = (data: any) =>
     data,
   });
 
-export const getCareer = (id: number, params: any) =>
+export const getCareer = (id: string, params: any) =>
   request({
     url: `/api/v1/careers/${id}`,
     method: "get",
