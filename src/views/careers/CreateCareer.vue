@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2>New Career</h2>
     <form @submit.prevent="handleCreateCareer">
       <div class="form-group text-left">
         <label for="name">Name</label>
