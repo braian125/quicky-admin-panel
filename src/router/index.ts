@@ -54,6 +54,25 @@ const routes: Array<RouteConfig> = [
           },
         ],
       },
+      {
+        path: "roaemaps",
+        name: "",
+        component: {
+          render(c: any) {
+            return c("router-view");
+          },
+        },
+        children: [
+          {
+            path: "new",
+            name: "create-roadmap",
+            component: () =>
+              import(
+                /* webpackChunkName: "create-roadmap" */ "./../views/roadmaps/CreateRoadmap.vue"
+              ),
+          }
+        ],
+      },
     ],
   },
   {
