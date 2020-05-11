@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2>New Roadmap</h2>
     <form @submit.prevent="handleCreateRoadmap">
       <div class="form-group text-left">
         <label for="name">Name</label>
@@ -41,15 +42,16 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
+import { IRoadmap } from "./../../types/roadmap";
 
 //import { roadmapModule } from "./../../store/modules/roadmap";
 import { createRoadmap } from "./../../api/roadmaps";
 
 @Component({})
 export default class CreateRoadmap extends Vue {
-  private errors = {};
+  private errors = <any>{};
 
-  private roadmap = {};
+  private roadmap = <IRoadmap>{};
 
   get roadmaps(): [] {
     return this.$store.state.roadmaps || [];
@@ -64,18 +66,15 @@ export default class CreateRoadmap extends Vue {
   }
 
   private async handleCreateRoadmap() {
-    if (
-      this.roadmap.name != "" &&
-      this.roadmap.description != ""
-    ) {
+    if (this.roadmap.name != "" && this.roadmap.description != "") {
       if (this.roadmap.id) {
         //const { data } = await updateroadmap(this.roadmap.id, this.roadmap);
       } else {
         const { data } = await createRoadmap(this.roadmap);
         console.log(data);
       }
-      this.roadmap = {};
-      this.errors = {};
+      this.roadmap = <IRoadmap>{};
+      this.errors = <any>{};
       this.$message({
         message: "roadmap save.",
         type: "success"
@@ -101,7 +100,7 @@ export default class CreateRoadmap extends Vue {
       //this.roadmap = this.roadmaps.find(c => c.id == this.$route.params.id);
       //this.fetchroadmap(this.$route.params.id);
     } else {
-      this.roadmap = {};
+      this.roadmap = <IRoadmap>{};
     }
   }
 }

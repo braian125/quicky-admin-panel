@@ -55,7 +55,7 @@ const routes: Array<RouteConfig> = [
         ],
       },
       {
-        path: "roaemaps",
+        path: "roadmap",
         name: "",
         component: {
           render(c: any) {
@@ -70,7 +70,7 @@ const routes: Array<RouteConfig> = [
               import(
                 /* webpackChunkName: "create-roadmap" */ "./../views/roadmaps/CreateRoadmap.vue"
               ),
-          }
+          },
         ],
       },
     ],
