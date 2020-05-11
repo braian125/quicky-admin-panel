@@ -17,6 +17,9 @@
         <span slot="title">Careers</span>
       </template>
       <el-menu-item index="1-3">
+        <router-link to="/careers">View careers</router-link>
+      </el-menu-item>
+      <el-menu-item index="1-3">
         <router-link to="/careers/new">Create new career</router-link>
       </el-menu-item>
     </el-submenu>
