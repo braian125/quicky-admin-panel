@@ -63,12 +63,13 @@ import {
   getCareers,
   getCareer
 } from "./../../api/careers";
+import { ICareer } from "./../../types/career";
 
 @Component({})
 export default class CreateCareer extends Vue {
-  private errors = {};
+  private errors = <any>{};
 
-  private career = {};
+  private career = <ICareer>{};
 
   get careers(): [] {
     return this.$store.state.Careers || [];
@@ -93,8 +94,8 @@ export default class CreateCareer extends Vue {
       } else {
         const { data } = await createCareer(this.career);
       }
-      this.career = {};
-      this.errors = {};
+      this.career = <ICareer>{};
+      this.errors = <any>{};
       this.$message({
         message: "Career save.",
         type: "success"
@@ -104,7 +105,7 @@ export default class CreateCareer extends Vue {
     }
   }
 
-  private async fetchCareer(id: number) {
+  private async fetchCareer(id: string) {
     try {
       const { data } = await getCareer(id, {
         /* Your params here */
@@ -120,7 +121,7 @@ export default class CreateCareer extends Vue {
       //this.career = this.careers.find(c => c.id == this.$route.params.id);
       this.fetchCareer(this.$route.params.id);
     } else {
-      this.career = {};
+      this.career = <ICareer>{};
     }
   }
 }
