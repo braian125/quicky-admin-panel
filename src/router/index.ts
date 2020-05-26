@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
           import(/* webpackChunkName: "home" */ "./../views/Home.vue"),
       },
       {
-        path: "careers",
+        path: "products",
         name: "",
         component: {
           render(c) {
@@ -30,48 +30,21 @@ const routes: Array<RouteConfig> = [
         children: [
           {
             path: "",
-            name: "list-careers",
+            name: "list-products",
             component: () =>
               import(
-                /* webpackChunkName: "careers" */ "./../views/careers/Careers.vue"
+                /* webpackChunkName: "products" */ "./../views/products/ProductsList.vue"
               ),
           },
           {
             path: "new",
-            name: "create-career",
+            name: "create-product",
             component: () =>
               import(
-                /* webpackChunkName: "create-careers" */ "./../views/careers/CreateCareer.vue"
+                /* webpackChunkName: "create-products" */ "./../views/products/ProductCreate.vue"
               ),
           },
-          {
-            path: ":id(\\d+)?",
-            name: "edit-career",
-            component: () =>
-              import(
-                /* webpackChunkName: "create-careers" */ "./../views/careers/CreateCareer.vue"
-              ),
-          },
-        ],
-      },
-      {
-        path: "roadmap",
-        name: "",
-        component: {
-          render(c: any) {
-            return c("router-view");
-          },
-        },
-        children: [
-          {
-            path: "new",
-            name: "create-roadmap",
-            component: () =>
-              import(
-                /* webpackChunkName: "create-roadmap" */ "./../views/roadmaps/CreateRoadmap.vue"
-              ),
-          },
-        ],
+        ]
       },
     ],
   },

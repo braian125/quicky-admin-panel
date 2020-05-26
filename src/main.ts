@@ -1,4 +1,5 @@
 import Vue from "vue";
+import VueCompositionApi from '@vue/composition-api'
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -7,6 +8,7 @@ import locale from "element-ui/lib/locale/lang/en";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "element-ui/lib/theme-chalk/index.css";
 
+Vue.use(VueCompositionApi);
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
