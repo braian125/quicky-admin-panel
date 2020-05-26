@@ -1,19 +1,19 @@
 <template>
   <div class="container">
-    <h2>New Career</h2>
-    <form @submit.prevent="handleCreateCareer">
+    <h2>New Product</h2>
+    <form @submit.prevent="handleCreateProduct">
       <div class="form-group text-left">
         <label for="name">Name</label>
         <input
           type="text"
-          v-bind:class="{'form-control': true, 'is-invalid' : errors.name, 'is-valid': errors.name === false}"
-          id="name"
-          v-model="career.name"
+          v-bind:class="{'form-control': true, 'is-invalid' : errors.title, 'is-valid': errors.title === false}"
+          id="title"
+          v-model="product.title"
           @blur="checkField($event)"
           aria-describedby="nameHelp"
         />
         <div
-          v-bind:class="{'invalid-feedback': errors.name, 'd-none': !errors.name}"
+          v-bind:class="{'invalid-feedback': errors.title, 'd-none': !errors.title}"
         >Please provide a valid name.</div>
       </div>
       <div class="form-group text-left">
@@ -22,7 +22,7 @@
           type="text"
           v-bind:class="{'form-control': true, 'is-invalid' : errors.description, 'is-valid': errors.description === false}"
           id="description"
-          v-model="career.description"
+          v-model="product.description"
           @blur="checkField($event)"
           aria-describedby="descriptionHelp"
         />
@@ -31,24 +31,24 @@
         >Please provide a valid description.</div>
       </div>
       <div class="form-group text-left">
-        <label for="name">Icon</label>
+        <label for="name">Price</label>
         <input
           type="text"
-          v-bind:class="{'form-control': true, 'is-invalid' : errors.icon, 'is-valid': errors.icon === false}"
-          id="icon"
-          v-model="career.icon"
+          v-bind:class="{'form-control': true, 'is-invalid' : errors.price, 'is-valid': errors.price === false}"
+          id="price"
+          v-model.number="product.price"
           @blur="checkField($event)"
-          aria-describedby="iconHelp"
+          aria-describedby="priceHelp"
         />
         <div
-          v-bind:class="{'invalid-feedback': errors.icon, 'd-none': !errors.icon}"
-        >Please provide a valid icon.</div>
+          v-bind:class="{'invalid-feedback': errors.price, 'd-none': !errors.price}"
+        >Please provide a valid price.</div>
       </div>
       <div class="form-group text-left">
         <label for="status">Status</label>
-        <el-switch v-model="career.status" class="ml-2" />
+        <el-switch v-model="product.published" class="ml-2" />
       </div>
-      <el-button native-type="submit" type="primary">{{ career.id?'Update':'Save' }}</el-button>
+      <el-button native-type="submit" type="primary">{{ product.id?'Update':'Save' }}</el-button>
     </form>
   </div>
 </template>
@@ -57,24 +57,19 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
 
-import { CareerModule } from "./../../store/modules/career";
+import { ProductModule } from "./../../store/modules/product";
 import {
-  createCareer,
-  updateCareer,
-  getCareers,
-  getCareer
-} from "./../../api/careers";
-import { ICareer } from "./../../types/career";
+  createProduct,
+  updateProduct,
+  getProducts,
+  getProduct
+} from "./../../api/products";
+import { IProduct } from "./../../types/product";
 
 @Component({})
-export default class CreateCareer extends Vue {
+export default class CreateProduct extends Vue {
   private errors = <any>{};
-
-  private career = <ICareer>{};
-
-  get careers(): [] {
-    return this.$store.state.Careers || [];
-  }
+  private product = <IProduct>{};
 
   private checkField(e: any) {
     if (e.target.value == "") {
@@ -84,21 +79,21 @@ export default class CreateCareer extends Vue {
     }
   }
 
-  private async handleCreateCareer() {
+  private async handleCreateProduct() {
     if (
-      this.career.name != "" &&
-      this.career.description != "" &&
-      this.career.icon != ""
+      this.product.title != "" &&
+      this.product.description != "" &&
+      this.product.price != 0
     ) {
-      if (this.career.id) {
-        const { data } = await updateCareer(this.career.id, this.career);
+      if (this.product.id) {
+        const { data } = await updateProduct(this.product.id, this.product);
       } else {
-        const { data } = await createCareer(this.career);
+        const { data } = await createProduct(this.product);
       }
-      this.career = <ICareer>{};
+      this.product = <IProduct>{};
       this.errors = <any>{};
       this.$message({
-        message: "Career save.",
+        message: "Product save.",
         type: "success"
       });
     } else {
@@ -106,12 +101,12 @@ export default class CreateCareer extends Vue {
     }
   }
 
-  private async fetchCareer(id: string) {
+  private async fetchProduct(id: string) {
     try {
-      const { data } = await getCareer(id, {
+      const { data } = await getProduct(id, {
         /* Your params here */
       });
-      this.career = data;
+      this.product = data;
     } catch (err) {
       console.error(err);
     }
@@ -120,9 +115,9 @@ export default class CreateCareer extends Vue {
   mounted() {
     if (this.$route.params.id) {
       //this.career = this.careers.find(c => c.id == this.$route.params.id);
-      this.fetchCareer(this.$route.params.id);
+      this.fetchProduct(this.$route.params.id);
     } else {
-      this.career = <ICareer>{};
+      this.product = <IProduct>{};
     }
   }
 }

@@ -13,27 +13,14 @@
     </el-menu-item>
     <el-submenu index="1">
       <template slot="title">
-        <i class="el-icon-notebook-2"></i>
-        <span slot="title">Careers</span>
+        <i class="el-icon-goods"></i>
+        <span slot="title">Products</span>
       </template>
       <el-menu-item index="1-3">
-        <router-link to="/careers">View careers</router-link>
+        <router-link to="/products">View products</router-link>
       </el-menu-item>
       <el-menu-item index="1-3">
-        <router-link to="/careers/new">Create new career</router-link>
-      </el-menu-item>
-    </el-submenu>
-
-    <el-submenu index="2">
-      <template slot="title">
-        <i class="el-icon-notebook-2"></i>
-        <span slot="title">Roadmap</span>
-      </template>
-      <!--  <el-menu-item index="2">
-        <router-link to="/careers">View roadmap</router-link>
-      </el-menu-item>-->
-      <el-menu-item index="2">
-        <router-link to="/roadmap/new">Create new roadmap</router-link>
+        <router-link to="/products/new">Create new product</router-link>
       </el-menu-item>
     </el-submenu>
   </el-menu>
